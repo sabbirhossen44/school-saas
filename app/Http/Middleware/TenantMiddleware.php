@@ -17,9 +17,13 @@ class TenantMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $host = $request()->getHost();
+        $host = $request->getHost();
 
         $tenant = Tenant::where('domain', $host)->first();
+
+         if (!$tenant) {
+            abort(404, 'Tenant not found');
+        }
 
         config([
             'database.connections.tenant.database' => $tenant->database,
