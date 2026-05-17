@@ -58,7 +58,7 @@
     <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header" id="appContent">
 
         <!-- storage link -->
-        {{-- @if ($storageLink) --}}
+        {{-- @if ($storageLink)
             <div class="w-100" style="z-index: 99; position: fixed; top: 0;">
 
                 <div class="alert alert-primary alert-dismissible fade show mb-0 w-100 text-center rounded-0 text-black"
@@ -74,7 +74,7 @@
                 </div>
 
             </div>
-        {{-- @endif --}}
+        @endif --}}
         @include('layouts.header')
         <div class="app-main">
             @include('layouts.sidebar')

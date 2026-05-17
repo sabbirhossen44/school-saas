@@ -48,7 +48,7 @@
                         </a>
                     </li>
                 {{-- @elseif(Auth::user()->hasRole('instructor')) --}}
-                    <li>
+                    {{-- <li>
                         <a class="menu {{ request()->is('admin') ? 'active' : '' }}" href="">
                             <span>
                                 <img class="menu-icon" src="{{ asset('assets/images/menu/home-roof.svg') }}" alt="icon"
@@ -56,9 +56,27 @@
                                 {{ __('Dashboard') }}
                             </span>
                         </a>
-                    </li>
+                    </li> --}}
                 {{-- @endif --}}
                 {{-- dashboard start --}}
+
+
+                {{-- tenant start --}}
+                <li class="menu-divider">
+                    <span class="menu-title">{{ __('Tenant') }}</span>
+                </li>
+
+                <li>
+                    <a class="menu {{ request()->is('admin/tenant*') ? 'active' : '' }}"
+                       href="{{ route('tenants.index') }}">
+                        <span>
+                            <img class="menu-icon" src="{{ asset('assets/images/menu/home-roof.svg') }}" alt="icon"
+                                 loading="lazy"/>
+                            {{ __('Tenant') }}
+                        </span>
+                    </a>
+                </li>
+                {{-- tenant start --}}
 
 
                 {{-- category start --}}
