@@ -32,7 +32,7 @@
                 </div>
             </div>
 
-             <form action="#" method="POST" enctype="multipart/form-data"
+            <form action="{{ route('tenants.store') }}" method="POST" enctype="multipart/form-data"
                 id="registrationForm">
                 @csrf
 
@@ -51,20 +51,33 @@
                     <div class="col-md-12 my-3">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="mb-4">Manager Information</h5>
+                                <h5 class="mb-4">Tenant Information</h5>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label for="name" class="form-label">Name</label>
-                                            <input type="text" class="form-control" id="name" name="name"
-                                                value="{{ old('name') }}" required>
+                                            <label for="domainName" class="form-label">Domain Name</label>
+                                            <input type="text" class="form-control" id="domainName" name="domain_name" placeholder="example.com" value="{{ old('domain_name') }}" required>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label for="email" class="form-label">Email</label>
-                                            <input type="email" class="form-control" id="email" name="email"
-                                                value="{{ old('email') }}" required>
+                                            <label for="database" class="form-label">Database Name</label>
+                                            <input type="text" class="form-control" id="database" name="database" placeholder="abc_db"
+                                                value="{{ old('database') }}" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="databaseUsername" class="form-label">Database User Name</label>
+                                            <input type="text" class="form-control" id="databaseUsername" name="database_username" placeholder="abc_user"
+                                                value="{{ old('database_username') }}" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="databasePassword" class="form-label">Database Password</label>
+                                            <input type="password" class="form-control" id="databasePassword" name="database_password" placeholder="abc_password"
+                                                value="{{ old('database_password') }}" required>
                                         </div>
                                     </div>
                                 </div>
@@ -76,8 +89,8 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
-                            <div class="card-body">
-                                <button type="submit" class="btn btn-primary">Save</button>
+                            <div class="card-body d-flex justify-content-end">
+                                <button type="submit" class="btn btn-primary">Create Tenant</button>
                             </div>
                         </div>
                     </div>
