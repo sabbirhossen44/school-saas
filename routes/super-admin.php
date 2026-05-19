@@ -6,10 +6,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::controller(TenantController::class)->group(function () {
     Route::get('/tenants', 'index')->name('tenants.index');
-    Route::get('/tenants/create', 'create')->name('tenants.create');
-    Route::post('/tenants', 'store')->name('tenants.store');
-    Route::get('/tenants/{tenant}', 'show')->name('tenants.show');
-    Route::get('/tenants/{tenant}/edit', 'edit')->name('tenants.edit');
-    Route::put('/tenants/{tenant}', 'update')->name('tenants.update');
-    Route::delete('/tenants/{tenant}', 'destroy')->name('tenants.destroy');
+    Route::get('/tenant/create', 'create')->name('tenant.create');
+    Route::post('/tenant', 'store')->name('tenant.store');
+    Route::get('/tenant/{tenant}', 'show')->name('tenants.show');
+    Route::get('/tenant/{tenant}/edit', 'edit')->name('tenant.edit');
+    Route::put('/tenant/{tenant}', 'update')->name('tenant.update');
+    Route::delete('/tenant/{tenant}', 'destroy')->name('tenants.destroy');
 });

@@ -11,8 +11,8 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb m-0 p-0">
                         <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="#">Tenant List</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Create</li>
+                        <li class="breadcrumb-item"><a href="#">{{ $tenant->name }}</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Edit</li>
                     </ol>
                 </nav>
                 <div class="d-flex justify-content-end">
@@ -26,15 +26,15 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <h3 class="m-0 p-0">{{ __('Create New Tenant') }}</h3>
+                            <h3 class="m-0 p-0">{{ __('Edit Tenant') }}</h3>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <form action="{{ route('tenants.store') }}" method="POST" enctype="multipart/form-data" id="registrationForm">
+            <form action="{{ route('tenant.update', $tenant->id) }}" method="POST" id="registrationForm">
                 @csrf
-
+                @method('PUT')
                 <div class="row">
                     <div class="col-md-12 my-3">
                         <div class="card">
@@ -45,7 +45,7 @@
                                         <div class="mb-3">
                                             <label for="name" class="form-label">Name</label>
                                             <input type="text" class="form-control" id="name" name="name"
-                                                placeholder="Enter full name" value="{{ old('name') }}" required>
+                                                placeholder="Enter full name" value="{{ old('name') ?? $tenant->admin->name }}" required>
                                             @error('name')
                                                 <strong class="text-danger">{{ $message }}</strong>
                                             @enderror
@@ -55,7 +55,7 @@
                                         <div class="mb-3">
                                             <label for="email" class="form-label">Email</label>
                                             <input type="email" class="form-control" id="email" name="email"
-                                                placeholder="Enter email address" value="{{ old('email') }}" required>
+                                                placeholder="Enter email address" value="{{ old('email') ?? $tenant->admin->email }}" required>
                                             @error('email')
                                                 <strong class="text-danger">{{ $message }}</strong>
                                             @enderror
@@ -65,7 +65,7 @@
                                         <div class="mb-3">
                                             <label for="telephone" class="form-label">Telephone Number</label>
                                             <input type="text" class="form-control" id="telephone" name="telephone"
-                                                placeholder="Enter telephone number" value="{{ old('telephone') }}">
+                                                placeholder="Enter telephone number" value="{{ old('telephone') ?? $tenant->admin->telephone }}">
                                             @error('telephone')
                                                 <strong class="text-danger">{{ $message }}</strong>
                                             @enderror
@@ -75,35 +75,12 @@
                                         <div class="mb-3">
                                             <label for="phone" class="form-label">Phone Number</label>
                                             <input type="text" class="form-control" id="phone" name="phone"
-                                                placeholder="Enter phone number" value="{{ old('phone') }}" required>
+                                                placeholder="Enter phone number" value="{{ old('phone') ?? $tenant->admin->phone }}" required>
                                             @error('phone')
                                                 <strong class="text-danger">{{ $message }}</strong>
                                             @enderror
                                         </div>
                                     </div>
-
-                                    <div class="col-md-6">
-                                        <div class="mb-3">
-                                            <label for="password" class="form-label">Password</label>
-                                            <input type="password" class="form-control" id="password" name="password"
-                                                placeholder="password" value="{{ old('password') }}" required>
-                                            @error('password')
-                                                <strong class="text-danger">{{ $message }}</strong>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="mb-3">
-                                            <label for="confirmPassword" class="form-label">Confirm Password</label>
-                                            <input type="password" class="form-control" id="confirmPassword"
-                                                name="password_confirmation" placeholder="Enter confirm password"
-                                                value="{{ old('password_confirmation') }}" required>
-                                            @error('password_confirmation')
-                                                <strong class="text-danger">{{ $message }}</strong>
-                                            @enderror
-                                        </div>
-                                    </div>
-
                                 </div>
                             </div>
                         </div>
@@ -121,7 +98,7 @@
                                             <label for="schoolName" class="form-label">School Name</label>
                                             <input type="text" class="form-control" id="schoolName"
                                                 name="school_name" placeholder="abc school"
-                                                value="{{ old('school_name') }}" required>
+                                                value="{{ old('school_name') ?? $tenant->name }}" required>
                                             @error('school_name')
                                                 <strong class="text-danger">{{ $message }}</strong>
                                             @enderror
@@ -132,7 +109,7 @@
                                             <label for="domainName" class="form-label">Domain Name</label>
                                             <input type="text" class="form-control" id="domainName"
                                                 name="domain_name" placeholder="example.com"
-                                                value="{{ old('domain_name') }}" required>
+                                                value="{{ old('domain_name') ?? $tenant->domain }}" required>
                                             @error('domain_name')
                                                 <strong class="text-danger">{{ $message }}</strong>
                                             @enderror
@@ -142,7 +119,7 @@
                                         <div class="mb-3">
                                             <label for="database" class="form-label">Database Name</label>
                                             <input type="text" class="form-control" id="database" name="database"
-                                                placeholder="abc_db" value="{{ old('database') }}" required>
+                                                placeholder="abc_db" value="{{ old('database') ?? $tenant->database }}" required>
                                             @error('database')
                                                 <strong class="text-danger">{{ $message }}</strong>
                                             @enderror
@@ -153,19 +130,8 @@
                                             <label for="databaseUsername" class="form-label">Database User Name</label>
                                             <input type="text" class="form-control" id="databaseUsername"
                                                 name="database_username" placeholder="abc_user"
-                                                value="{{ old('database_username') }}" required>
+                                                value="{{ old('database_username') ?? $tenant->database_username }}" required>
                                             @error('database_username')
-                                                <strong class="text-danger">{{ $message }}</strong>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="mb-3">
-                                            <label for="databasePassword" class="form-label">Database Password</label>
-                                            <input type="password" class="form-control" id="databasePassword"
-                                                name="database_password" placeholder="abc_password"
-                                                value="{{ old('database_password') }}" required>
-                                            @error('database_password')
                                                 <strong class="text-danger">{{ $message }}</strong>
                                             @enderror
                                         </div>
@@ -180,7 +146,7 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-body d-flex justify-content-end">
-                                <button type="submit" class="btn btn-primary">Create Tenant</button>
+                                <button type="submit" class="btn btn-primary">Update Tenant</button>
                             </div>
                         </div>
                     </div>

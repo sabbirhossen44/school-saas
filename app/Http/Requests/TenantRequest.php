@@ -23,6 +23,11 @@ class TenantRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:admins,email'],
+            'phone' => ['required', 'string', 'max:16'],
+            'password' => ['required', 'string', 'min:4', 'confirmed'],
+            'school_name' => ['required', 'string', 'max:255'],
             'domain_name' => ['required', 'unique:tenants,domain', 'min:3', 'max:255'],
             'database' => ['required', 'min:3', 'max:255'],
             'database_username' => ['required', 'min:3', 'max:255'],

@@ -15,7 +15,7 @@
                     </ol>
                 </nav>
                 <div class="d-flex justify-content-end">
-                    <a href="{{ route('tenants.create') }}" class="btn btn-shadow btn-outline-primary mr-3 ms-auto">
+                    <a href="{{ route('tenant.create') }}" class="btn btn-shadow btn-outline-primary mr-3 ms-auto">
                         {{ '+ New Tenant' }}
                     </a>
                 </div>
@@ -46,18 +46,88 @@
                                     <thead>
                                         <tr>
                                             <th><strong>#</strong></th>
-                                            <th><strong>Name</strong></th>
-                                            <th><strong>Type</strong></th>
-                                            <th><strong>Vat Id</strong></th>
-                                            <th><strong>Fiscal Code</strong></th>
+                                            <th><strong>School Name</strong></th>
+                                            <th><strong>Admin Name</strong></th>
                                             <th><strong>Email</strong></th>
-                                            <th><strong>Address</strong></th>
+                                            <th><strong>Domain Name</strong></th>
+                                            <th><strong>Database</strong></th>
                                             <th><strong>Status</strong></th>
                                             <th><strong>Action</strong></th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @foreach ($tenants ?? [] as $tenant)
+                                            <tr>
+                                                <td>
+                                                    {{ $loop->iteration }}
+                                                </td>
+                                                <td>
+                                                    {{ $tenant->name }}
+                                                </td>
+                                                <td>
+                                                    {{ $tenant->admin->name }}
+                                                </td>
+                                                <td>
+                                                    {{ $tenant->admin->email }}
+                                                </td>
+                                                <td>
+                                                    {{ $tenant->domain }}
+                                                </td>
+                                                <td>
+                                                    {{ $tenant->database }}
+                                                </td>
 
+                                                <td class="tableStatus">
+                                                    @if (!$tenant->status)
+                                                        <div class="statusItem">
+                                                            <div class="circleDot animatedPending"></div>
+                                                            <div class="statusText">
+                                                                <span class="statusPending">Deactivate</span>
+                                                            </div>
+                                                        </div>
+                                                    @else
+                                                        <div class="statusItem">
+                                                            <div class="circleDot animatedCompleted"></div>
+                                                            <div class="statusText">
+                                                                <span class="statusconfirm">Active</span>
+                                                            </div>
+                                                        </div>
+                                                    @endif
+                                                </td>
+                                                <td class="tableAction">
+                                                    <div class="action-icon">
+                                                        <a href="#" class="circleIcon btn-sm showUser"
+                                                            data-bs-toggle="tooltip" data-bs-placement="top"
+                                                            data-bs-custom-class="custom-tooltip" title="View branch info">
+                                                            <img src="{{ asset('assets/images/icon/eye.svg') }}"
+                                                                alt="View branch info">
+                                                        </a>
+                                                        @if (!$tenant->status)
+                                                            <a class="circleIcon btn-sm" data-bs-toggle="tooltip"
+                                                                data-bs-placement="top"
+                                                                data-bs-custom-class="custom-tooltip"
+                                                                data-bs-title="Restore company" href="#"><i
+                                                                    class="bi bi-arrow-counterclockwise Circleicon"></i></a>
+                                                        @else
+                                                            <a class="circleIcon btn-sm" data-bs-toggle="tooltip"
+                                                                data-bs-placement="top"
+                                                                data-bs-custom-class="custom-tooltip"
+                                                                data-bs-title="Edit company" href="{{ route('tenant.edit', $tenant->id) }}"><img
+                                                                    src="{{ asset('assets/images/icon/edit.svg') }}"
+                                                                    alt="icon"></a>
+
+                                                            <a class="circleIcon btn-sm" data-bs-toggle="tooltip"
+                                                                data-bs-placement="top"
+                                                                data-bs-custom-class="custom-tooltip"
+                                                                data-bs-title="Suspend company" href="#"
+                                                                onclick="deleteAction('')"><img
+                                                                    src="{{ asset('assets/images/icon/user-ban.svg') }}"
+                                                                    alt="icon"></a>
+                                                        @endif
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -67,21 +137,6 @@
             </div>
 
             <!-- ****End-Body-Section**** -->
-        </div>
-    </div>
-
-    <div class="modal fade" id="userInfoModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">User Information</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-
-                <div class="modal-body" id="userInfoModalBody">
-                    <!-- Content will be loaded here -->
-                </div>
-            </div>
         </div>
     </div>
 @endsection
@@ -154,13 +209,10 @@
             width: 140px;
             text-align: center;
         }
-
     </style>
 @endpush
 
 
 @push('scripts')
-    <script>
-
-    </script>
+    <script></script>
 @endpush
