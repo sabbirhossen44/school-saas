@@ -42,6 +42,22 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'super-admin' => [
+            'driver' => 'session',
+            'provider' => 'super-admins',
+        ],
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],
+        'teacher' => [
+            'driver' => 'session',
+            'provider' => 'teachers',
+        ],
+        'student' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ]
     ],
 
     /*
@@ -66,11 +82,22 @@ return [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', User::class),
         ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'super-admins' => [
+            'driver' => 'eloquent',
+            'model' => 'App\Models\SuperAdmin',
+        ],
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => 'App\Models\Admin',
+        ],
+        'teachers' => [
+            'driver' => 'eloquent',
+            'model' => 'App\Models\Teacher',
+        ],
+        'students' => [
+            'driver' => 'eloquent',
+            'model' => 'App\Models\User',
+        ]
     ],
 
     /*

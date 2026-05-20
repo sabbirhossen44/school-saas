@@ -15,3 +15,6 @@ Route::get('/', function () {
 // });
 
 include __DIR__.'/super-admin.php';
+include __DIR__.'/admin.php';
+include __DIR__.'/teacher.php';
+include __DIR__.'/student.php';
