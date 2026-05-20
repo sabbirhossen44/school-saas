@@ -33,7 +33,10 @@ class AdminRepository extends Repository
     public static function updateByRequest(Request $request, Admin $admin): Admin
     {
         $admin->update([
-            //
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'telephone' => $request->telephone,
         ]);
         return $admin;
     }

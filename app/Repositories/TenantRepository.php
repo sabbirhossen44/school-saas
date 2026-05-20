@@ -34,7 +34,10 @@ class TenantRepository extends Repository
     public static function updateByRequest(Request $request, Tenant $tenant): Tenant
     {
         $tenant->update([
-            //
+            'name' => $request->school_name,
+            'domain' => $request->domain_name,
+            'database' => $request->database,
+            'database_username' => $request->database_username,
         ]);
         return $tenant;
     }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TenantRequest;
+use App\Http\Requests\TenantUpdateRequest;
 use App\Models\Tenant;
 use App\Repositories\AdminRepository;
 use App\Repositories\TenantRepository;
@@ -29,5 +30,11 @@ class TenantController extends Controller
 
     public function edit(Tenant $tenant) {
         return view('super-admin.tenants.edit', compact('tenant'));
+    }
+
+    public function update(TenantUpdateRequest $request, Tenant $tenant) {
+        $admin = AdminRepository::updateByRequest($request, $tenant->admin);
+        $tenant = TenantRepository::updateByRequest($request, $tenant);
+        return redirect()->route('tenants.index')->withSuccess('Tenant updated successfully');
     }
 }
