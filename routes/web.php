@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AuthController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -13,6 +14,8 @@ Route::get('/', function () {
 //     });
 
 // });
+
+
 
 include __DIR__.'/super-admin.php';
 include __DIR__.'/admin.php';
